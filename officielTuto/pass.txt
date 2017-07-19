@@ -6,3 +6,6 @@ mohamedondjango
 ========================
 we are here : 
 https://docs.djangoproject.com/en/1.11/intro/tutorial03/
+
+=========================
+here is a great feature from feature 
