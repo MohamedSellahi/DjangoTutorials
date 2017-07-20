@@ -11,23 +11,34 @@ from . import views
 
 app_name = 'polls'
 
-urlpatterns = [
-  # url(r'^login', views.login, name="login"),
-  #ex /polls/
-  url(r'^$', views.index, name='index'),
+# urlpatterns = [
+#   # url(r'^login', views.login, name="login"),
+#   #ex /polls/
+#   url(r'^$', views.index, name='index'),
   
-  # ex /polls/5/
-  url(r'^(?P<question_id>[0-9]+)/$', views.detail, name="detail"),
+#   # ex /polls/5/
+#   url(r'^(?P<question_id>[0-9]+)/$', views.detail, name="detail"),
 
-  #ex /polls/5/details
-  url(r'^(?P<question_id>[0-9]+)/details/$', views.detail2, name="details"),
+#   #ex /polls/5/details
+#   url(r'^(?P<question_id>[0-9]+)/details/$', views.detail2, name="details"),
 
-  # ex /polls/5/results/
-  url(r'^(?P<question_id>[0-9]+)/results/$', views.results, name="results"),
+#   # ex /polls/5/results/
+#   url(r'^(?P<question_id>[0-9]+)/results/$', views.results, name="results"),
 
-  # ex /polls/5/vote/
-  url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name="vote"),
+#   # ex /polls/5/vote/
+#   url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name="vote"),
   
-  # any other thing 
-  url(r'^.?', views.index, name='index'),
+#   # any other thing 
+#   url(r'^.?', views.index, name='index'),
+# ]
+
+# ==========================================================================================
+# ==========================================================================================
+# Using generic views 
+urlpatterns=[
+  url(r'^$', views.IndexView.as_view(), name='index'),
+  url(r'^(?P<pk>[0-9]+)/$',views.DetailedView.as_view(), name='detail'),
+  url(r'^(?P<pk>[0-9]+)/results/$', views.ResultsView.as_view(), name='results'),
+  url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
 ]
+

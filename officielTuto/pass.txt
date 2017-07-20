@@ -30,6 +30,9 @@ https://docs.djangoproject.com/en/1.11/ref/templates/builtins/#std:templatetag-f
 
 ================================
 tutorial 4: Writing simple forms
+using forms 
+f() for avoiding race conditions https://docs.djangoproject.com/en/1.11/ref/models/expressions/#avoiding-race-conditions-using-f
 
+use of generic views 
 
 

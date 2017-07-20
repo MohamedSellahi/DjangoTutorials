@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.urls import reverse
 # from django.template import loader
-from .models import Question
+from .models import Question, Choice
 # Create your views here.
 
 # this is the page thay would be laoded automatically 
@@ -35,10 +36,50 @@ def detail2(request, question_id):
   return render(request, 'polls/detail.html',{'question': question})
 
 def results(request, question_id):
-  response = "You're looking at the resutls of question %s."
-  return HttpResponse(response % question_id)
-
+  question = get_object_or_404(Question, pk = question_id)
+  return render(request, 'polls/results.html', {'question': question})
+  
+# you might think of race condition 
 def vote(request,question_id):
-  return HttpResponse("You are voting on question %s. "%question_id)
+  question = get_object_or_404(Question, pk=question_id)
+  try:
+    selected_choice = question.choice_set.get(pk=request.POST['choice'])
+  except (KeyError, Choice.DoesNotExist):
+    return render(request, 'polls/detail.html', {
+            'question': question,
+            'error_message':"You didn't select a choice"})
+  else:
+    selected_choice.votes += 1
+    selected_choice.save()
+    # Always return an HttpResponseRedirect after successfully dealing with data 
+    # with post data. this prevents data from being 
+    # posted twice is a user hits the back button
+    # reverse will construct an url from route name and arguments 
+  return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
 
+
+# USING GENERIC VIEWS 
+
+from django.views import generic
+
+class IndexView(generic.ListView):
+  template_name = 'polls/index.html'
+  context_object_name = 'latest_question_list'
+
+  def get_queryset(self):
+    """ Return the last five published questions """
+    return Question.objects.order_by('-pub_date')[:5]
+
+
+class DetailedView(generic.DetailView):
+  model = Question
+  template_name = 'polls/detail.html'
+
+class ResultsView(generic.DeleteView):
+  model = Question
+  template_name = 'polls/results.html'
+  context_object_name = 'question'
+
+
+# vote view does not change 
