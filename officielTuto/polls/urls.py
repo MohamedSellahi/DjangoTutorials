@@ -5,7 +5,6 @@ Remember : url(regex, view, kwargs=None, name=None)[source]
 
 """
 from django.conf.urls import url
-
 from . import views
 
 urlpatterns = [

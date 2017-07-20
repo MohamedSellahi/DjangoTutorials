@@ -1,19 +1,33 @@
 from django.shortcuts import render
-
+from django.http import HttpResponse, Http404
+# from django.template import loader
+from .models import Question
 # Create your views here.
-from django.http import HttpResponse
 
 # this is the page thay would be laoded automatically 
 # if we request /polls/
+
+# def index(request):
+#   latest_question_list = Question.objects.order_by('-pub_date')[:5]
+#   template = loader.get_template('polls/index.html')
+#   context = {'latest_question_list':latest_question_list} # this is the variable to  be passet to the view
+#   return HttpResponse(template.render(context, request))
+
 def index(request):
-  return HttpResponse("Hello, world. You are the tyhe polls index.")
+  latest_question_list = Question.objects.order_by('-pub_date')[:3]
+  context = {'latest_question_list': latest_question_list}
+  return render(request, 'polls/index.html', context)
 
 
 def login(request):
   return HttpResponse("this is the login page")
 
 def detail(request, question_id):
-  return HttpResponse("You're looking at question %s." % question_id)
+  try:
+    question = Question.objects.get(pk = question_id)
+  except Question.DoesNotExist:
+    raise Http404("Question does not exist")
+  return render(request, 'polls/detail.html', {'question': question})
 
 def results(request, question_id):
   response = "You're looking at the resutls of question %s."

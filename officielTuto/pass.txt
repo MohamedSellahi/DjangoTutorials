@@ -4,5 +4,7 @@ mohamedondjango
 
 
 ========================
-we are here : 
+we are here :
+
+A shortcut: get_object_or_404()¶
 https://docs.djangoproject.com/en/1.11/intro/tutorial03/
