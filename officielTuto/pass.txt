@@ -2,9 +2,34 @@ superuser :
 mohamed
 mohamedondjango
 
+========================
+tutorial03: USing views, templates , namspacing urls 
+-----------
+template system ; --> read more here https://docs.djangoproject.com/en/1.11/topics/templates/
+render helpers 
+get_object_or_404()
+removing hardcoded urls in the urls config file: 
+  {% url 'url name ' params %}" in the app.urls module 
+
+Namespacing URLS: 
+add app_name in the app.urls file
+reference a controller using 'app_name:controllername'
+  ex:in tamplates: {% url 'polls:detail' question.id %} } 
+
 
 ========================
 we are here :
 
 A shortcut: get_object_or_404()¶
 https://docs.djangoproject.com/en/1.11/intro/tutorial03/
+
+
+built -in templates and guie: for {% for ... in ... %}
+https://docs.djangoproject.com/en/1.11/ref/templates/builtins/#std:templatetag-for
+
+
+================================
+tutorial 4: Writing simple forms
+
+
+
