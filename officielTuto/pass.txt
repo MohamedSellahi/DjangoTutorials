@@ -35,4 +35,8 @@ f() for avoiding race conditions https://docs.djangoproject.com/en/1.11/ref/mode
 
 use of generic views 
 
+tutorial05:
+===========
+set up tests
+using the Client class to simulate client interraction with the application 
 
